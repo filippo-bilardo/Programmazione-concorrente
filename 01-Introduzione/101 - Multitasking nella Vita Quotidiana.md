@@ -6,7 +6,7 @@ Il concetto di **multitasking** (o gestione multi-task) non è limitato ai siste
 ### **Esempio di attività sequenziali**
 
 #### **Attesa in cucina**
-![Attesa in cucina](image.png)
+<img src="img/image.png" alt="Attesa in cucina" width="300"/>
 Senza il multitasking, si aspetta che un'attività sia completata prima di iniziare la successiva. Ad esempio, un cuoco che prepara una ricetta seguendo passo dopo passo le istruzioni senza sovrapporre le attività. 
 Questo approccio può essere inefficiente, poiché il tempo di attesa (ad esempio, per la cottura) non viene sfruttato per altre attività e i tempi di preparazione si allungano notevolmente dovendo attendere il completamento di ogni singolo compito.
 

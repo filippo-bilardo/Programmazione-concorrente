@@ -55,15 +55,15 @@ Java fornisce supporto nativo per la programmazione multi-thread attraverso:
         ┌──────────┐
    ┌───→│ RUNNABLE │←───┐ pronto per esecuzione
    │    └────┬─────┘    │
-   │         │           │
-   │         ↓           │
+   │         │          │
+   │         ↓          │
    │    ┌──────────┐    │
    │    │ RUNNING  │────┘ in esecuzione
    │    └────┬─────┘
    │         │
    │         ├──────────────→ wait() ────→ ┌─────────┐
-   │         │                              │ WAITING │
-   │         │                notify() ←────└─────────┘
+   │         │                             │ WAITING │
+   │         │               notify() ←────└─────────┘
    │         │
    │         ├──────────────→ sleep() ───→ ┌──────────────┐
    │         │                             │ TIMED_WAITING│
