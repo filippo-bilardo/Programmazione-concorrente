@@ -3,6 +3,12 @@
 Il concetto di **multitasking** (o gestione multi-task) non è limitato ai sistemi informatici o embedded: lo troviamo ovunque nella vita quotidiana, nei comportamenti umani e negli ambienti domestici, lavorativi e sociali. Il multitasking rappresenta la capacità di svolgere più attività contemporaneamente o alternarsi rapidamente tra compiti diversi per massimizzare l'efficienza.
 
 ---
+### **Esempio di attività sequenziali**
+
+#### **Attesa in cucina**
+![Attesa in cucina](image.png)
+Senza il multitasking, si aspetta che un'attività sia completata prima di iniziare la successiva. Ad esempio, un cuoco che prepara una ricetta seguendo passo dopo passo le istruzioni senza sovrapporre le attività. 
+Questo approccio può essere inefficiente, poiché il tempo di attesa (ad esempio, per la cottura) non viene sfruttato per altre attività e i tempi di preparazione si allungano notevolmente dovendo attendere il completamento di ogni singolo compito.
 
 ### **Esempi di Multitasking nella Vita Quotidiana**
 
@@ -10,7 +16,7 @@ Il concetto di **multitasking** (o gestione multi-task) non è limitato ai siste
 Un esempio classico di multitasking è quello del cuoco che prepara una cena completa:
 - **Attività principale**: Cuocere il riso.
 - **Task secondari**: Tagliare le verdure, marinare la carne, controllare il forno per il pane.
-- **Strategia**: Il cuoco divide il proprio tempo tra queste attività, utilizzando tecniche come impostare un timer per il riso (simile a un interrupt) o controllare periodicamente il forno (polling).
+- **Strategia**: Il cuoco divide il proprio tempo tra queste attività, utilizzando tecniche di polling che richiedono di controllare periodicamente il tempo trascorso o lo stato di cottura di ogni piatto.
 
 #### **2. Guida e Conversazione**
 Mentre guidi un'auto, stai già eseguendo un multitasking naturale:

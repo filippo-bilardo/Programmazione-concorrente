@@ -1,5 +1,6 @@
 /**
  * Esempio 3: Lampeggio 3 LED - INTERRUPT HARDWARE (TIMER)
+ * https://wokwi.com/projects/445615631754931201
  * 
  * Questo esempio usa Timer Interrupt per temporizzare in modo PRECISO.
  * Il Timer Hardware genera interrupt a intervalli regolari.

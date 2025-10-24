@@ -1,6 +1,6 @@
-# Esempi Arduino: Lampeggio LED - Tre Approcci
+# Esempi Arduino: Lampeggio LED - Quattro Approcci
 
-Questa cartella contiene tre esempi progressivi che dimostrano diversi paradigmi di programmazione per il lampeggio simultaneo di 3 LED.
+Questa cartella contiene quattro esempi progressivi che dimostrano diversi paradigmi di programmazione per il lampeggio simultaneo di 3 LED.
 
 ## 📁 Esempi
 

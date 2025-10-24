@@ -1,5 +1,6 @@
 /**
  * Esempio 2: Lampeggio 3 LED - POLLING CON MILLIS()
+ * https://wokwi.com/projects/445615296104636417
  * 
  * Questo esempio usa millis() per temporizzare senza bloccare.
  * Tecnica "Blink Without Delay" - ogni LED ha il proprio timer.

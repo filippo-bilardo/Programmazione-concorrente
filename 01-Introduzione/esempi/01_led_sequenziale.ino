@@ -1,5 +1,6 @@
 /**
  * Esempio 1: Lampeggio 3 LED - CODICE SEQUENZIALE
+ * https://wokwi.com/projects/445614989333189633
  * 
  * Questo esempio usa delay() per temporizzare il lampeggio.
  * PROBLEMA: Il microcontrollore è bloccato durante i delay,
