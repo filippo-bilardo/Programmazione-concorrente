@@ -23,6 +23,8 @@ La **programmazione concorrente** è un paradigma di programmazione che permette
 - Elaborazione di grandi quantità di dati
 - Sistemi embedded e real-time
 
+La **programmazione parallela** è un approccio che sfrutta l'esecuzione simultanea di più processi o thread su architetture multi-core o distribuite, permettendo di dividere compiti complessi in sottocompiti indipendenti che vengono elaborati contemporaneamente. È essenziale per ottimizzare le prestazioni in applicazioni che richiedono elevata potenza di calcolo, come simulazioni scientifiche, elaborazione di immagini o machine learning. 
+
 ---
 
 ## Programmi Sequenziali vs Programmi Concorrenti
