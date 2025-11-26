@@ -1,4 +1,4 @@
-# Modulo 2: Processi nei sistemi Linux con Python
+# Processi nei sistemi Linux con Python
 
 Questo modulo copre la programmazione con processi in Linux utilizzando Python, dalle system call di basso livello fino alle API ad alto livello del modulo `multiprocessing`.
 
