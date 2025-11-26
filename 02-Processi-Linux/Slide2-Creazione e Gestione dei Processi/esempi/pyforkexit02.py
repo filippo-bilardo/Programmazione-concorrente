@@ -12,4 +12,4 @@ if __name__ == "__main__":
     a = 10 / a  # ZeroDivisionError
     
     print("questo codice non verrà eseguito")
-    sys.exit(1)
+    sys.exit(0)
