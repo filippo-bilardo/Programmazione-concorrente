@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# =============================================================================
+# File: 18_pool_completo.py
+# Argomento: Confronto fra elaborazione sequenziale e parallela
+# Scopo: Misura la stessa serie di calcoli nel padre e in un pool di quattro worker.
+# Esecuzione: python3 18_pool_completo.py
+# Nota: Il rapporto fra i tempi dipende dal carico, dalle CPU e dai costi del pool.
+# =============================================================================
 """Esempio completo con Pool"""
 from multiprocessing import Pool, cpu_count
 import time
@@ -9,7 +16,7 @@ def task_pesante(n):
     pid = os.getpid()
     print(f"Worker {pid}: inizio task {n}")
     
-    # Simula calcolo pesante
+    # Il calcolo usa la CPU; la pausa successiva aggiunge anche tempo di attesa.
     total = sum(i*i for i in range(n * 100000))
     
     time.sleep(0.1)
@@ -29,7 +36,8 @@ if __name__ == '__main__':
     time_seq = time.time() - start
     print(f"Tempo: {time_seq:.2f}s\n")
     
-    # Parallelo con Pool
+    # Il tempo parallelo include anche creazione e chiusura dei processi.
+    # map() restituisce le coppie (n, total) nello stesso ordine di tasks.
     print("Esecuzione PARALLELA:")
     start = time.time()
     with Pool(processes=4) as pool:
@@ -37,4 +45,5 @@ if __name__ == '__main__':
     time_par = time.time() - start
     print(f"Tempo: {time_par:.2f}s\n")
     
+    # Un rapporto > 1 indica un vantaggio del parallelo; non è garantito.
     print(f"Speedup: {time_seq/time_par:.2f}x")

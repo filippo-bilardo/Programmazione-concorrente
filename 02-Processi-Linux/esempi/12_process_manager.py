@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# =============================================================================
+# File: 12_process_manager.py
+# Argomento: Gestore di processi worker
+# Scopo: Avvia worker, ne registra i PID, invia SIGTERM e raccoglie gli stati finali.
+# Esecuzione: python3 -u 12_process_manager.py
+# Nota: Richiede Linux/Unix. Gestisce anche Ctrl+C nel processo principale.
+# =============================================================================
 """Gestore semplice di processi"""
 import os
 import sys
@@ -10,6 +17,7 @@ class ProcessManager:
     
     def __init__(self):
         self.workers = {}  # pid -> info
+        # Dopo fork ogni processo possiede una copia indipendente di questo flag.
         self.running = True
     
     def worker_func(self, worker_id):
@@ -33,6 +41,7 @@ class ProcessManager:
         if pid == 0:  # Child
             self.worker_func(worker_id)
         else:  # Parent
+            # Solo il manager registra PID e istante di avvio nel proprio dizionario.
             self.workers[pid] = {
                 'id': worker_id,
                 'start_time': time.time()
@@ -43,6 +52,8 @@ class ProcessManager:
         """Ferma un worker specifico"""
         if pid in self.workers:
             try:
+                # SIGTERM termina il worker con l’azione predefinita del segnale.
+                # Inviare il segnale non raccoglie lo stato: servirà anche wait().
                 os.kill(pid, signal.SIGTERM)
                 print(f"Manager: inviato SIGTERM a {pid}")
             except OSError as e:
@@ -51,6 +62,7 @@ class ProcessManager:
     def stop_all(self):
         """Ferma tutti i worker"""
         print("\nManager: fermo tutti i worker...")
+        # Cambia solo il flag del padre: i worker vengono fermati dai segnali sotto.
         self.running = False
         
         for pid in list(self.workers.keys()):
@@ -60,6 +72,7 @@ class ProcessManager:
         """Attende terminazione worker"""
         while self.workers:
             try:
+                # Attende un figlio qualsiasi e associa il suo stato ai dati salvati.
                 pid, status = os.wait()
                 
                 if pid in self.workers:
@@ -108,5 +121,6 @@ if __name__ == "__main__":
         manager.run(num_workers=3, duration=10)
     except KeyboardInterrupt:
         print("\n\nInterrotto da utente")
+        # Anche in caso di interruzione richiede la fine dei figli e li raccoglie.
         manager.stop_all()
         manager.wait_workers()

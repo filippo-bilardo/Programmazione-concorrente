@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
+# =============================================================================
+# File: 07_mini_shell.py
+# Argomento: Mini shell interattiva
+# Scopo: Gestisce cd, pwd ed exit; esegue gli altri comandi in processi figli.
+# Esecuzione: python3 -u 07_mini_shell.py
+# Nota: Richiede Linux/Unix. La separazione degli argomenti avviene sugli spazi.
+# =============================================================================
 """Mini shell interattiva"""
 import os
 import sys
 
 def esegui_comando(cmd_line):
     """Esegue una linea di comando"""
+    # Parser minimo: non interpreta virgolette, pipe, redirezioni o wildcard.
     args = cmd_line.strip().split()
     
     if not args:
@@ -12,7 +20,8 @@ def esegui_comando(cmd_line):
     
     comando = args[0]
     
-    # Comandi built-in
+    # I built-in agiscono nel processo della shell: cd deve cambiarne la directory.
+    # Un chdir() eseguito in un figlio non cambierebbe la directory del padre.
     if comando == "cd":
         try:
             os.chdir(args[1] if len(args) > 1 else os.environ['HOME'])
@@ -27,7 +36,7 @@ def esegui_comando(cmd_line):
     elif comando == "exit":
         sys.exit(0)
     
-    # Comandi esterni
+    # Il figlio sostituisce il proprio programma; il padre resta la shell.
     pid = os.fork()
     
     if pid == 0:  # Child
@@ -37,6 +46,7 @@ def esegui_comando(cmd_line):
             print(f"{comando}: comando non trovato")
             os._exit(127)
     else:  # Parent
+        # Attesa in primo piano: il prossimo prompt compare dopo la fine del comando.
         os.waitpid(pid, 0)
 
 def main():
@@ -56,6 +66,7 @@ def main():
             
         except KeyboardInterrupt:
             print("\nUsa 'exit' per uscire")
+        # Ctrl+D su input vuoto segnala la fine dell’input.
         except EOFError:
             print("\nBye!")
             break
