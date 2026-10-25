@@ -1,1 +1,7 @@
 prompt.md
+
+# File prodotto della compilazione di file sorgenti in c e c++
+*.o
+*.a
+*.so
+*.out
