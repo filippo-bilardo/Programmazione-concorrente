@@ -18,6 +18,28 @@ repository su GitHub usa **`Programmazione-concorrente`**, con il trattino al
 posto dello spazio. La cartella locale resterà `processi`: il nome locale e
 quello del repository remoto possono essere diversi.
 
+## Prima di iniziare: prepara il documento da consegnare
+
+Crea un **documento Google** intitolato
+**`Cognome Nome - Classe - Git e GitHub per processi`**. Sarà il progetto
+da consegnare al docente al termine dell'esercitazione.
+
+Inserisci subito nome, cognome, classe e data. Predisponi una sezione per ogni
+passo, una sezione finale per le risposte di autovalutazione e uno spazio per
+il collegamento al repository GitHub. **Raccogli gli screenshot mentre lavori**,
+senza aspettare la fine: devono documentare i risultati ottenuti nei vari passi.
+
+Per ogni screenshot indica il numero del passo, la postazione usata
+(**Web4Student, PC di casa o PC di scuola**) e una breve didascalia che spieghi
+il comando eseguito e il risultato. Le immagini devono mostrare testo leggibile
+e l'esito dell'operazione, non soltanto il comando prima dell'esecuzione.
+Non includere password, passphrase, token o il contenuto delle chiavi private.
+
+Nella sezione [Consegna e autovalutazione](#consegna-e-autovalutazione) trovi
+l'elenco delle prove da raccogliere e le domande a cui rispondere. Alla fine
+consegnerai il **link al documento Google**, condiviso con il docente con
+permesso di lettura, attraverso il canale indicato dal docente.
+
 ## Prerequisiti e risultato finale
 
 Prepara il tuo account GitHub e le credenziali di accesso a Web4Student.
@@ -26,9 +48,49 @@ Tutti i comandi, dopo il collegamento SSH, si eseguono nel terminale
 Python 3 e un editor di testo, per esempio `nano`.
 
 Dal Passo 11 userai invece il **terminale locale del PC di casa o di scuola**.
-Anche su queste postazioni dovranno essere disponibili Git e, per eseguire
-l'esempio, Python 3. Su Windows puoi usare Git Bash per i comandi Git e SSH
-riportati nell'esercitazione.
+Prima di svolgere le operazioni locali, verifica i prerequisiti seguenti
+**separatamente sul PC di casa e sul PC di scuola**.
+
+### Prerequisiti sui PC di casa e di scuola
+
+| Requisito | A cosa serve e cosa verificare |
+|---|---|
+| Account personale sul PC e cartella scrivibile | Devi poter salvare il clone in `~/processi` e le chiavi in `~/.ssh`, mantenendone l'accesso riservato al tuo account. A scuola verifica con il docente se i file vengono conservati tra le sessioni. |
+| Account GitHub accessibile | Devi poter accedere allo stesso account usato per creare il repository, completare l'eventuale autenticazione a due fattori e registrare le chiavi pubbliche dei PC. |
+| Git | Deve essere installato e richiamabile dal terminale per clonare, creare commit, fare pull e push. |
+| Client SSH e `ssh-keygen` | Servono per verificare l'accesso a GitHub e generare la coppia di chiavi su ciascuna postazione. |
+| Terminale adatto ai comandi | Su Windows usa Git Bash; su Linux o macOS usa il terminale. Aprilo localmente quando svolgi i Passi 11–14. |
+| Python 3 | Serve per controllare ed eseguire `hello.py`; su Windows può essere disponibile con il comando `py -3`. |
+| Editor di testo | Serve per modificare `README.md`, i sorgenti e la configurazione SSH. Se `nano` non è disponibile, usa un editor locale mantenendo i nomi e le estensioni richiesti. |
+| Strumento per acquisire screenshot | Devi poter catturare terminale e browser e inserire immagini leggibili nel documento Google. |
+
+Dal terminale locale di **ciascun PC** controlla gli strumenti:
+
+```bash
+git --version
+ssh -V
+command -v ssh-keygen
+python3 --version
+```
+
+Su Windows, se `python3` non è disponibile, verifica `py -3 --version` e usa
+`py -3` anche nei successivi comandi Python. `command -v ssh-keygen`, eseguito
+in Git Bash o nel terminale Linux/macOS, deve mostrare il percorso del comando.
+Inserisci uno screenshot di queste verifiche per ciascun PC nel progetto.
+
+Se manca uno strumento, predisponilo prima di iniziare il lavoro locale.
+Sul PC di scuola concorda con il docente eventuali installazioni, l'uso della
+cartella personale e possibili limitazioni di rete; non modificare le
+impostazioni di altri utenti. Gli esempi che richiedono Linux, come quelli
+con `os.fork()`, andranno eseguiti su Web4Student o in un ambiente Linux
+disponibile sul PC. Per il solo Hello World di questa esercitazione non serve WSL.
+
+Prima del **clone**, devono inoltre essere completati la creazione del
+repository GitHub e il primo push (Passi 7–8), oltre alla configurazione e
+alla verifica dell'accesso SSH del PC corrente (Passo 11). Configurare Git e
+SSH su Web4Student non configura automaticamente i computer locali.
+
+### Risultato finale
 
 La struttura da ottenere è:
 
@@ -599,6 +661,11 @@ credenziali o dati riservati.
 **Dove:** prima sul PC di casa, poi sul PC di scuola, nel tuo account personale.
 Ripeti la preparazione su ciascuna postazione.
 
+Prima di proseguire, completa le verifiche della sezione
+[Prerequisiti sui PC di casa e di scuola](#prerequisiti-sui-pc-di-casa-e-di-scuola)
+e documentale nel documento Google. Il repository su GitHub deve già contenere
+i commit creati su Web4Student.
+
 Apri un nuovo terminale **locale**. Se sei ancora nella sessione SSH di
 Web4Student, usa `exit` per tornare al terminale del PC. I comandi di questo
 passo devono operare sui file del computer che stai usando.
@@ -794,14 +861,62 @@ le modifiche prima di integrare: non serve un push forzato per questo esercizio.
 
 ## Consegna e autovalutazione
 
-Consegna URL del repository, output dell'esecuzione di `es01b-hello-world/hello.py`
-e identificativi dei primi due commit e dei commit di verifica da casa e da
-scuola. Verifica che il repository comprenda anche gli altri sorgenti e le
-risorse presenti in `processi`. Documenta il clone sulle due postazioni e la
-ricezione degli aggiornamenti mostrando l'output di `git remote -v` e
-`git log --oneline -4` da ciascun PC, dopo la sincronizzazione.
+### Documento Google da consegnare
 
-Spiega:
+Completa il **documento Google creato all'inizio**, intitolato
+**`Cognome Nome - Classe - Git e GitHub per processi`**. Organizzalo così:
+
+1. **Dati dello studente:** nome, cognome, classe, data e sistemi operativi usati a casa e a scuola.
+2. **Repository:** URL GitHub e identificativi dei primi due commit e dei commit di verifica da casa e da scuola.
+3. **Svolgimento:** sezioni numerate per i passi, con screenshot dei risultati e didascalie. Distingui sempre la postazione su cui hai lavorato.
+4. **Problemi incontrati:** descrivi eventuali errori, la causa individuata e come li hai risolti; se non ne hai incontrati, dichiaralo.
+5. **Autovalutazione:** risposte personali alle domande riportate sotto, con esempi tratti dal lavoro svolto.
+
+### Screenshot e prove del completamento
+
+Usa la tabella come elenco di controllo. Puoi raccogliere più risultati in una
+sola immagine se restano leggibili; usa più immagini quando serve. Per i Passi
+4 e 4 bis documenta la procedura scelta nell'ambiente interessato: non devi
+eseguire entrambe le alternative soltanto per produrre gli screenshot.
+
+| Passo | Cosa mostrare nel documento Google |
+|---|---|
+| Prerequisiti locali | Verifica di Git, SSH, `ssh-keygen` e Python dal PC di casa e dal PC di scuola, indicando il sistema operativo di ciascuno. |
+| 1 — Collegamento e strumenti | Terminale Web4Student con versioni di Git e Python ed elenco della cartella `~/processi`. |
+| 2 — Primo programma | Esecuzione di `hello.py` con saluto, nome, messaggio e PID visibili. |
+| 3 — Identità Git | Risultato di `git config --global --get user.name` e `git config --global --get user.email`. |
+| 4 oppure 4 bis — Autenticazione | Esito di `ssh -T git@github.com` che riconosce il tuo account. Indica se hai usato una chiave con passphrase; non mostrarne la passphrase o il contenuto privato. |
+| 5 — Documentazione ed esclusioni | Contenuto del README e delle regole di `.gitignore`, con l'esclusione di `/tmp/` visibile. |
+| 6 — Primo commit | Radice del repository, primo commit nella cronologia e risultato di `git check-ignore -v tmp/prova.txt`. |
+| 7 — Repository GitHub | Pagina del repository creato con nome e account proprietario riconoscibili. |
+| 8 — Primo push | Esito del push e pagina GitHub con README, `.gitignore` e sorgenti caricati. |
+| 9 — Modifica versionata | Differenza del messaggio, secondo commit e conferma del push. |
+| 10 — Verifica finale sul server | Nuovo output di Hello World, `git status`, verifica dell'esclusione e `git ls-files -- tmp` senza file elencati. |
+| 11 — Accesso dai due PC | Esito dell'autenticazione SSH a GitHub da casa e da scuola, con didascalie distinte. |
+| 12 — Clone a casa | Esito del clone, percorso locale, `git remote -v`, cronologia ed esecuzione di Hello World sul PC di casa. |
+| 13 — Clone a scuola | Esito del clone, percorso locale, `git remote -v`, cronologia ed esecuzione di Hello World sul PC di scuola. |
+| 14 — Sincronizzazione | Commit e push delle modifiche al README dalle due postazioni; pull e README aggiornato sulla postazione ricevente. Dopo la sincronizzazione, mostra `git remote -v` e `git log --oneline -4` da ciascun PC e documenta l'aggiornamento anche su Web4Student. |
+
+Se riutilizzi un repository o un clone già esistente, scrivilo nella didascalia
+e mostra le verifiche e l'aggiornamento eseguiti, senza ricrearlo. Se un passo
+non è stato completato, indicalo esplicitamente con il motivo: una schermata
+di errore documenta il tentativo, non il completamento.
+
+Prima della consegna, verifica che il repository contenga anche gli altri
+sorgenti e le risorse presenti in `processi`. Controlla che le immagini siano
+leggibili e accompagnate da spiegazioni, che gli URL siano cliccabili e che
+non compaiano credenziali o chiavi private.
+
+**Consegna il link al documento Google** tramite il canale indicato dal docente.
+Condividilo con l'account del docente con permesso di lettura e verifica che
+sia abilitato ad aprirlo; non è necessario renderlo pubblico. Se il repository
+GitHub è privato, assicurati anche che il docente possa accedervi secondo le
+indicazioni del corso.
+
+### Spiegazioni e autovalutazione
+
+Rispondi nel documento Google con parole tue. Collega le spiegazioni ai comandi,
+ai risultati e agli screenshot della tua esercitazione:
 
 1. Quale cartella costituisce la radice del repository e dove vengono modificati i programmi?
 2. Che cosa cambia tra salvare un file, fare commit e fare push?
@@ -811,6 +926,14 @@ Spiega:
 6. Che cosa crea `git clone` e perché non devi eseguire nuovamente `git init`?
 7. Perché ogni postazione deve avere una propria configurazione di accesso a GitHub?
 8. Quali comandi usi per trasferire il lavoro dal PC di casa a quello di scuola?
+9. Qual è la differenza tra il terminale locale del PC e la sessione SSH Web4Student? Dove vengono creati i file quando lavori nei due ambienti?
+10. Che cosa rappresentano `origin` e `main`? Quale comando mostra l'indirizzo del repository remoto?
+11. Perché la cartella locale può chiamarsi `processi` mentre il repository su GitHub si chiama `Programmazione-concorrente`? Quale argomento di `git clone` sceglie il nome locale?
+12. A cosa serve la passphrase della chiave privata e in che cosa differisce dalla password di GitHub? Perché è utile sulla postazione scolastica?
+13. Perché `tmp` e le cache Python non vengono scaricate con il clone? Che cosa succede se aggiungi a `.gitignore` un file già tracciato?
+14. Che cosa controlli prima di eseguire `git pull --ff-only` e perché conviene aggiornare la copia locale prima di iniziare nuove modifiche?
+15. Se fai commit sul PC di casa ma dimentichi il push, che cosa troverai sul PC di scuola dopo un pull? Come recuperi il lavoro?
+16. Quali risultati dimostrano che le tre copie sono aggiornate agli stessi commit? Spiega perché vedere lo stesso nome di file non basta a verificarlo.
 
 ---
 
