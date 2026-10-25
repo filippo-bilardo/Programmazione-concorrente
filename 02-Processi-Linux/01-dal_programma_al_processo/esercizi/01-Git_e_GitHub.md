@@ -814,4 +814,4 @@ Spiega:
 
 ---
 
-[Torna ai concetti fondamentali sui processi](../01.%20Concetti%20fondamentali%20sui%20processi.md)
+[Torna ai concetti fondamentali sui processi](../01-concetti_fondamentali_sui_processi.md)

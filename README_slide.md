@@ -7,13 +7,13 @@
 ---
 ### Teoria
 1. **Introduzione ai Processi**  
-   - [1.1 Concetti fondamentali sui processi](<01. Introduzione ai Processi/01.1 Concetti fondamentali sui processi.md>)
+   - [1.1 Concetti fondamentali sui processi](<02-Processi-Linux/01-dal_programma_al_processo/01-concetti_fondamentali_sui_processi.md>)
    - [1.2 Tipi di processi: sequenziali e paralleli](<01. Introduzione ai Processi/01.2 Tipi di processi sequenziali e paralleli.md>)
-   - [1.3 Il ruolo del kernel nella gestione dei processi](<01. Introduzione ai Processi/01.3 Il ruolo del kernel nella gestione dei processi.md>)
-   - [1.4 Panoramica sulle system call](<01. Introduzione ai Processi/01.4 Panoramica sulle system call.md>)
-   - [1.5 Ciclo di vita e Stati dei processi](<01. Introduzione ai Processi/01.5 Ciclo di vita e Stati dei processi.md>)
-   - [1.6 Differenze tra processo e thread](<01. Introduzione ai Processi/01.6 Differenze tra processo e thread.md>)
-   - [1.7 Multitasking e schedulazione](<01. Introduzione ai Processi/01.7 Multitasking e schedulazione.md>)
+   - [1.3 Il ruolo del kernel nella gestione dei processi](<02-Processi-Linux/01-dal_programma_al_processo/03-il_ruolo_del_kernel_nella_gestione_dei_processi.md>)
+   - [1.4 Panoramica sulle system call](<02-Processi-Linux/01-dal_programma_al_processo/04-panoramica_sulle_system_call.md>)
+   - [1.5 Ciclo di vita e Stati dei processi](<02-Processi-Linux/01-dal_programma_al_processo/05-ciclo_di_vita_e_stati_dei_processi.md>)
+   - [1.6 Differenze tra processo e thread](<02-Processi-Linux/01-dal_programma_al_processo/06-differenze_tra_processo_e_thread.md>)
+   - [1.7 Multitasking e schedulazione](<02-Processi-Linux/01-dal_programma_al_processo/07-multitasking_e_schedulazione.md>)
 
 2. **Creazione e Gestione dei Processi**  
    - [2.1 La system call fork()](<02. Creazione e Gestione dei Processi/02.1 La system call fork().md>)  
