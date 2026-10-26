@@ -53,12 +53,19 @@ Prima di svolgere le operazioni locali, verifica i prerequisiti seguenti
 
 ### Prerequisiti sui PC di casa e di scuola
 
+Se Git non è ancora disponibile, completa prima la guida della postazione:
+
+- [Esercitazione 02 — Installazione di Git sul PC di casa](02-installazione-di-git.md).
+- [Esercitazione 03 — Git senza amministratore sul PC di scuola](03-installazione-git-no-admin.md).
+
+Poi torna qui per configurare l'accesso a GitHub e clonare il repository.
+
 | Requisito | A cosa serve e cosa verificare |
 |---|---|
 | Account personale sul PC e cartella scrivibile | Devi poter salvare il clone in `~/processi` e le chiavi in `~/.ssh`, mantenendone l'accesso riservato al tuo account. A scuola verifica con il docente se i file vengono conservati tra le sessioni. |
-| Account GitHub accessibile | Devi poter accedere allo stesso account usato per creare il repository, completare l'eventuale autenticazione a due fattori e registrare le chiavi pubbliche dei PC. |
+| Account GitHub accessibile | Devi poter accedere allo stesso account usato per creare il repository, completare l'eventuale autenticazione a due fattori e registrare la chiave pubblica del PC di scuola. A casa riutilizzerai quella di Web4Student, già registrata. |
 | Git | Deve essere installato e richiamabile dal terminale per clonare, creare commit, fare pull e push. |
-| Client SSH e `ssh-keygen` | Servono per verificare l'accesso a GitHub e generare la coppia di chiavi su ciascuna postazione. |
+| Client SSH, `ssh-keygen` e `scp` | Servono per verificare l'accesso a GitHub, generare la chiave del PC di scuola e trasferire da Web4Student al PC di casa la chiave già esistente. |
 | Terminale adatto ai comandi | Su Windows usa Git Bash; su Linux o macOS usa il terminale. Aprilo localmente quando svolgi i Passi 11–14. |
 | Python 3 | Serve per controllare ed eseguire `hello.py`; su Windows può essere disponibile con il comando `py -3`. |
 | Editor di testo | Serve per modificare `README.md`, i sorgenti e la configurazione SSH. Se `nano` non è disponibile, usa un editor locale mantenendo i nomi e le estensioni richiesti. |
@@ -70,12 +77,14 @@ Dal terminale locale di **ciascun PC** controlla gli strumenti:
 git --version
 ssh -V
 command -v ssh-keygen
+command -v scp
 python3 --version
 ```
 
 Su Windows, se `python3` non è disponibile, verifica `py -3 --version` e usa
 `py -3` anche nei successivi comandi Python. `command -v ssh-keygen`, eseguito
 in Git Bash o nel terminale Linux/macOS, deve mostrare il percorso del comando.
+Anche `command -v scp` deve mostrare il percorso del programma di copia tramite SSH.
 Inserisci uno screenshot di queste verifiche per ciascun PC nel progetto.
 
 Se manca uno strumento, predisponilo prima di iniziare il lavoro locale.
@@ -212,14 +221,23 @@ Usa l'email associata all'account GitHub oppure il tuo indirizzo `noreply`
 fornito dalle impostazioni GitHub. Questi dati identificano l'autore dei commit;
 non sono credenziali di accesso. Sono impostazioni globali: valgono per tutti i repository Git sul server Web4Student.
 
-## Passo 4 — Preparare l'autenticazione SSH verso GitHub
+## Passo 4 — Preparare l'autenticazione SSH da Web4Student verso GitHub
 
-**Scegli una delle due procedure alternative:** questo passo configura una
-chiave senza passphrase, utilizzabile su un PC con **account personale protetto**
-e accesso riservato ai propri file. Il **Passo 4 bis** configura invece una
-chiave con passphrase, da preferire sul PC della scuola quando altre persone
-potrebbero accedere al file della chiave privata. Dopo la procedura scelta,
-prosegui con il Passo 5.
+**Dove:** terminale remoto Web4Student, nel tuo account personale.
+Questo passo configura la chiave `w4s_github_ed25519` usata dal server per
+accedere a GitHub. Nell'esempio la chiave è senza passphrase: mantieni
+l'accesso ai file riservato al tuo account.
+
+Le tre procedure si riferiscono ad ambienti diversi:
+
+| Ambiente | Procedura |
+|---|---|
+| Web4Student | Passo 4: prepara la chiave e registra la pubblica su GitHub. |
+| PC di scuola | Passo 4 bis: prepara una chiave distinta, protetta da passphrase. |
+| PC di casa | Passo 4 ter: riutilizza la chiave di Web4Student, senza generarne una nuova. |
+
+Completa ora il Passo 4 e prosegui con il Passo 5 su Web4Student. Riprenderai
+i Passi 4 bis e 4 ter quando configurerai i computer locali al Passo 11.
 
 ### Perché creare una chiave SSH?
 
@@ -239,7 +257,7 @@ a GitHub. Riferimento: [autenticazione SSH su GitHub](https://docs.github.com/en
 
 | File | Dove rimane | A cosa serve |
 |---|---|---|
-| `w4s_github_ed25519` — chiave privata | Nella tua cartella `~/.ssh` su Web4Student | Permette al client SSH di dimostrare il possesso della chiave |
+| `w4s_github_ed25519` — chiave privata | Nella tua cartella `~/.ssh` su Web4Student; al Passo 4 ter ne copierai una versione sul tuo PC di casa | Permette al client SSH di dimostrare il possesso della chiave |
 | `w4s_github_ed25519.pub` — chiave pubblica | Viene copiata nelle impostazioni del tuo account GitHub | Permette a GitHub di verificare l'autenticazione e associarla al tuo account |
 
 La chiave privata non va incollata su GitHub né aggiunta al repository.
@@ -342,13 +360,14 @@ spiegato nella [guida al test SSH](https://docs.github.com/en/authentication/con
 
 
 CONGRATULAZIONI! La connessione SSH tra Web4Student e GitHub funziona.
-Se hai scelto questa procedura, puoi proseguire direttamente con il Passo 5.
+Prosegui con il Passo 5 su Web4Student; le configurazioni dei PC serviranno al Passo 11.
 
 ## Passo 4 bis — Creare una chiave con passphrase per il PC della scuola
 
-Questa procedura è **alternativa al Passo 4**, non un secondo collegamento
-obbligatorio. Usala quando lavori su un PC della scuola o in un ambiente in cui
-altri potrebbero vedere o copiare i file del tuo account.
+**Dove:** terminale locale del PC di scuola, nel tuo account personale.
+Svolgi questa procedura quando il Passo 11 ti chiede di configurare la
+postazione scolastica. Qui userai una chiave distinta da quella di Web4Student,
+protetta da passphrase. La configurazione del server resta quella del Passo 4.
 
 ### Perché proteggere la chiave con una password?
 
@@ -364,16 +383,17 @@ Vedi la [guida GitHub alle passphrase SSH](https://docs.github.com/en/authentica
 
 ### 1. Scegliere il terminale e un nome riconoscibile
 
-Esegui i comandi nell'ambiente che userà Git:
-
-- Se Git viene eseguito sul PC della scuola, usa il suo terminale, per esempio Git Bash su Windows: la chiave resterà nella sua cartella `~/.ssh`.
-- Se Git viene eseguito nella sessione SSH Web4Student, usa quel terminale: la chiave resterà su Web4Student. Collegarsi dal PC della scuola non trasferisce automaticamente la chiave sul PC.
+Esegui i comandi nel terminale **locale del PC di scuola**, per esempio Git Bash
+su Windows. Se sei collegato a Web4Student, usa `exit` per tornare al terminale
+locale. La chiave resterà nella cartella `~/.ssh` del tuo account sul PC:
+collegarsi al server dalla scuola non trasferisce automaticamente le chiavi.
 
 Nel nome della nuova chiave inserisci **il tuo nome e cognome** e il suffisso
 **`_pass`**. Nell'esempio usiamo `mario_rossi`: sostituiscilo in tutti i comandi
 e nella configurazione con il tuo nome, senza spazi.
 
 ```bash
+mkdir -p ~/.ssh
 ls -la ~/.ssh
 ssh-keygen -t ed25519 -C "Mario Rossi - PC scuola - tua.email@example.com" -f ~/.ssh/pc_github_mario_rossi_ed25519_pass
 ```
@@ -413,7 +433,7 @@ cat ~/.ssh/pc_github_mario_rossi_ed25519_pass.pub
 
 Copia l'intera chiave pubblica e, nel browser GitHub:
 
-1. Apri **Settings → SSH and GPG keys → New SSH key**.
+1. Apri **Settings → SSH and GPG keys → [New SSH key](https://github.com/settings/keys)**.
 2. Scegli il tipo **Authentication Key**.
 3. Usa un titolo riconoscibile, per esempio `Mario Rossi - PC scuola - pass`.
 4. Incolla la chiave pubblica nel campo **Key** e conferma con **Add SSH key**.
@@ -458,17 +478,97 @@ Enter passphrase for key '.../pc_github_mario_rossi_ed25519_pass':
 
 **Verifica:** dopo lo sblocco GitHub riconosce il tuo account. Anche `git push`
 e `git pull` tramite SSH richiederanno lo sblocco della chiave con questa
-configurazione. Ora puoi continuare dal Passo 5.
-
-### Quale alternativa usare?
-
-| Situazione | Procedura |
-|---|---|
-| PC con account personale protetto e file accessibili soltanto al proprietario | Passo 4: chiave senza passphrase, per il collegamento automatico |
-| PC della scuola o ambiente in cui altri potrebbero accedere al file privato | Passo 4 bis: chiave con nome personale, suffisso `_pass` e passphrase |
+configurazione. Torna al Passo 11 per completare la preparazione del PC di scuola.
 
 La passphrase protegge il file salvato, non una sessione già accessibile ad
 altre persone: al termine del lavoro chiudi le sessioni ed esci dal tuo account.
+
+## Passo 4 ter — Riutilizzare sul PC di casa la chiave di Web4Student
+
+**Dove:** terminale locale del PC di casa, nel tuo account personale protetto.
+Svolgi questa procedura quando arrivi alla configurazione locale del Passo 11.
+Devi aver completato il Passo 4 e poter accedere al tuo account Web4Student.
+
+**Non serve generare una nuova chiave:** puoi utilizzare la stessa
+`w4s_github_ed25519` già registrata su GitHub. Se è presente soltanto sul server,
+devi prima copiarla sul PC di casa: indicarne il nome nel file `config` non
+consente al client locale di leggere automaticamente il file remoto.
+
+### 1. Preparare la cartella locale e controllare le chiavi
+
+Apri Git Bash su Windows o il terminale su Linux/macOS. Se sei nella sessione
+SSH Web4Student, torna al terminale locale con `exit`.
+
+```bash
+mkdir -p ~/.ssh
+ls -la ~/.ssh
+```
+
+Se i file `w4s_github_ed25519` e `w4s_github_ed25519.pub` sono già la copia della
+chiave Web4Student, passa direttamente alla configurazione. Non sovrascrivere
+chiavi diverse con lo stesso nome: in quel caso scegli nomi locali distinti
+per la copia e adatta anche `IdentityFile`.
+
+### 2. Copiare la chiave da Web4Student al PC di casa
+
+Esegui dal **PC di casa** i comandi seguenti, sostituendo `username` con il tuo
+utente Web4Student. Sono previsti quando i file di destinazione non esistono:
+
+```bash
+scp -P 2222 username@w4s.filippobilardo.it:.ssh/w4s_github_ed25519 ~/.ssh/w4s_github_ed25519
+scp -P 2222 username@w4s.filippobilardo.it:.ssh/w4s_github_ed25519.pub ~/.ssh/w4s_github_ed25519.pub
+```
+
+`scp` trasferisce i file attraverso SSH. L'opzione **`-P` maiuscola** indica
+la porta 2222; il percorso dopo i due punti è relativo alla cartella personale
+sul server. La destinazione `~/.ssh/…` è invece sul PC di casa.
+Se viene richiesta una password per il collegamento, è quella di Web4Student.
+
+Occorre la **chiave privata** per autenticarsi; copiare soltanto il file `.pub`
+non basta. Trasferiscila direttamente con `scp`, senza incollarne il contenuto
+in chat, email, repository o documento Google. La copia deve restare nel tuo
+account personale; per il PC di scuola usa la chiave separata del Passo 4 bis.
+
+La chiave pubblica è già registrata sul tuo account GitHub: **non devi
+aggiungerla di nuovo**. Web4Student e PC di casa useranno la stessa identità
+SSH; revocare quella chiave su GitHub ne impedirà l'uso da entrambi.
+
+### 3. Configurare il client SSH locale
+
+Apri `~/.ssh/config` sul PC di casa con un editor. Inserisci questo blocco
+oppure integra quello esistente per `github.com`, senza duplicarlo:
+
+```sshconfig
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/w4s_github_ed25519
+    IdentitiesOnly yes
+```
+
+Salva il file con nome `config`, senza estensione `.txt`. Nel terminale:
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/config ~/.ssh/w4s_github_ed25519
+```
+
+Su Windows usa la cartella personale del tuo account; se SSH segnala permessi
+troppo aperti, verifica anche i permessi del file nelle proprietà di sicurezza
+di Windows. La chiave copiata conserva la passphrase della chiave originale:
+se hai seguito il Passo 4 con `-N ""`, non ne verrà richiesta una.
+
+### 4. Verificare l'accesso dal PC di casa
+
+```bash
+ssh -T git@github.com
+```
+
+Al primo collegamento verifica l'impronta di GitHub come indicato nel Passo 4.
+**Verifica:** il messaggio riconosce lo stesso account GitHub usato da
+Web4Student. Inserisci nella relazione lo screenshot di questo risultato,
+senza mostrare il contenuto della chiave privata. Torna al Passo 11 e prosegui
+poi con il clone sul PC di casa al Passo 12.
 
 ## Passo 5 — Documentare il progetto e scegliere i file da tracciare
 
@@ -691,17 +791,17 @@ ls -la ~/.ssh
 
 Configura poi l'autenticazione seguendo le procedure già illustrate:
 
-- **PC di casa:** segui il Passo 4 se usi un account personale protetto, oppure
-  il Passo 4 bis per una chiave con passphrase.
+- **PC di casa:** segui il Passo 4 ter per riutilizzare la chiave Web4Student;
+  non occorre generare una nuova coppia o registrare nuovamente la pubblica.
 - **PC di scuola:** segui il Passo 4 bis, usando una chiave con il tuo nome,
   il suffisso `_pass` e una passphrase personale.
 
-Esegui quelle procedure nel terminale locale. Crea una coppia di chiavi per
-ciascuna postazione e registra ogni chiave pubblica sullo **stesso account
-GitHub**, con titoli riconoscibili come `Nome Cognome - PC casa` e
-`Nome Cognome - PC scuola`. Non copiare la chiave privata da Web4Student o da
-un PC all'altro. Se sul PC hai già una chiave personale configurata per GitHub,
-puoi riutilizzarla.
+Esegui quelle procedure nel terminale locale. La chiave di Web4Student,
+riutilizzata a casa, e la chiave distinta del PC di scuola devono essere
+associate allo **stesso account GitHub**. Usa titoli riconoscibili nelle
+impostazioni GitHub, per esempio `Nome Cognome - Web4Student e casa` e
+`Nome Cognome - PC scuola`. Se una chiave adatta è già configurata nella
+postazione, verifica l'accesso senza rigenerarla o sovrascriverla.
 
 Verifica l'accesso da ciascun PC:
 
@@ -875,17 +975,20 @@ Completa il **documento Google creato all'inizio**, intitolato
 ### Screenshot e prove del completamento
 
 Usa la tabella come elenco di controllo. Puoi raccogliere più risultati in una
-sola immagine se restano leggibili; usa più immagini quando serve. Per i Passi
-4 e 4 bis documenta la procedura scelta nell'ambiente interessato: non devi
-eseguire entrambe le alternative soltanto per produrre gli screenshot.
+sola immagine se restano leggibili; usa più immagini quando serve. Documenta
+il Passo 4 su Web4Student, il Passo 4 bis sul PC di scuola e il Passo 4 ter
+sul PC di casa. Se riutilizzi chiavi già configurate, mostra l'esito della
+verifica senza rigenerarle soltanto per produrre gli screenshot.
 
 | Passo | Cosa mostrare nel documento Google |
 |---|---|
-| Prerequisiti locali | Verifica di Git, SSH, `ssh-keygen` e Python dal PC di casa e dal PC di scuola, indicando il sistema operativo di ciascuno. |
+| Prerequisiti locali | Verifica di Git, SSH, `ssh-keygen`, `scp` e Python dal PC di casa e dal PC di scuola, indicando il sistema operativo di ciascuno. |
 | 1 — Collegamento e strumenti | Terminale Web4Student con versioni di Git e Python ed elenco della cartella `~/processi`. |
 | 2 — Primo programma | Esecuzione di `hello.py` con saluto, nome, messaggio e PID visibili. |
 | 3 — Identità Git | Risultato di `git config --global --get user.name` e `git config --global --get user.email`. |
-| 4 oppure 4 bis — Autenticazione | Esito di `ssh -T git@github.com` che riconosce il tuo account. Indica se hai usato una chiave con passphrase; non mostrarne la passphrase o il contenuto privato. |
+| 4 — Autenticazione da Web4Student | Esito di `ssh -T git@github.com` sul server che riconosce il tuo account. |
+| 4 bis — Chiave del PC di scuola | Configurazione `IdentityFile` con il nome della chiave protetta ed esito del test SSH locale; non mostrare la passphrase o il contenuto privato. |
+| 4 ter — Riutilizzo della chiave a casa | Configurazione locale `IdentityFile` ed esito del test SSH dal PC di casa. Spiega che usi la chiave già registrata per Web4Student; non mostrare il contenuto privato. |
 | 5 — Documentazione ed esclusioni | Contenuto del README e delle regole di `.gitignore`, con l'esclusione di `/tmp/` visibile. |
 | 6 — Primo commit | Radice del repository, primo commit nella cronologia e risultato di `git check-ignore -v tmp/prova.txt`. |
 | 7 — Repository GitHub | Pagina del repository creato con nome e account proprietario riconoscibili. |
@@ -934,6 +1037,7 @@ ai risultati e agli screenshot della tua esercitazione:
 14. Che cosa controlli prima di eseguire `git pull --ff-only` e perché conviene aggiornare la copia locale prima di iniziare nuove modifiche?
 15. Se fai commit sul PC di casa ma dimentichi il push, che cosa troverai sul PC di scuola dopo un pull? Come recuperi il lavoro?
 16. Quali risultati dimostrano che le tre copie sono aggiornate agli stessi commit? Spiega perché vedere lo stesso nome di file non basta a verificarlo.
+17. Perché a casa puoi riutilizzare la chiave Web4Student senza registrarla di nuovo su GitHub? Perché copiare soltanto il file `.pub` non basta e cosa succede a entrambi gli accessi se revochi la chiave condivisa?
 
 ---
 
