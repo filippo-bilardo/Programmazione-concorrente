@@ -55,8 +55,8 @@ Prima di svolgere le operazioni locali, verifica i prerequisiti seguenti
 
 Se Git non è ancora disponibile, completa prima la guida della postazione:
 
-- [Esercitazione 02 — Installazione di Git sul PC di casa](02-installazione-di-git.md).
-- [Esercitazione 03 — Git senza amministratore sul PC di scuola](03-installazione-git-no-admin.md).
+- [Esercitazione 02 — Installazione di Git sul PC di casa](01-installazione-di-git.md).
+- [Esercitazione 03 — Git senza amministratore sul PC di scuola](02-installazione-git-no-admin.md).
 
 Poi torna qui per configurare l'accesso a GitHub e clonare il repository.
 
