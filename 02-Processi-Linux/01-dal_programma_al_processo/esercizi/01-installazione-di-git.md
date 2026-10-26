@@ -1,4 +1,4 @@
-# Esercitazione 02 — Installazione di Git sul PC di casa
+# Installazione di Git sul PC di casa
 
 ## Obiettivo
 

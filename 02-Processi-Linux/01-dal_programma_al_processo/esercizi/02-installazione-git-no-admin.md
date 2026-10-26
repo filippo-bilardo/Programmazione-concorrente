@@ -1,4 +1,4 @@
-# Esercitazione 03 — Git senza privilegi amministrativi sul PC di scuola
+# Installazione di Git senza privilegi amministrativi sul PC di scuola
 
 ## Obiettivo
 
