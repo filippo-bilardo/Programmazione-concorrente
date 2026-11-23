@@ -5,3 +5,5 @@ prompt.md
 *.a
 *.so
 *.out
+
+tmp/

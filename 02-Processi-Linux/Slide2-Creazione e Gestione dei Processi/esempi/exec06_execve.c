@@ -16,6 +16,8 @@ int main(int argc, char *argv[]) {
   char *myargv[]={"ls", ".", (char *)0};
   
   execve(pathname, myargv, myenv);
+  //in caso di fallimento della exec, il processo figlio continua l'esecuzione 
+  // del codice sottostante
   perror("exec fallita! A causa dell'errore: ");
   exit(112);
 }

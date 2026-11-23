@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
   if (pid==0) { // Processo figlio 
     printf("[Figlio] - pid=%d, pid padre=%d\n", getpid(), getppid());
     execl("/bin/ls", "ls", "/errore", (char *)0);
+    // In caso di fallimento della exec, il processo figlio continua l'esecuzione 
+    // del codice sottostante
     printf("exec fallita!\n");
     exit(112);
   } else if (pid>0) { // Processo padre

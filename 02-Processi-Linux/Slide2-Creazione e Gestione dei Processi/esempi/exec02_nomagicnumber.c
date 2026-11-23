@@ -14,6 +14,8 @@ int main(int argc, char *argv[]) {
   char *myarg[3]={"cmdls", "-a", (char *)0};
 
   execl(pathname, myarg[0], myarg[1], myarg[2]);
+  
+  // Se il programma arriva qui, significa che execl ha fallito!
   printf("exec fallita!\n");
   exit(112);
 }

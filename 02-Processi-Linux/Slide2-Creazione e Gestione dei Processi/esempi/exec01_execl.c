@@ -14,6 +14,8 @@
 int main(int argc, char **argv) {
 
   execl("/bin/ls", "cmd_ls", "-a", (char *)0);
+
+  // Se il programma arriva qui, significa che execl ha fallito!
   printf("exec fallita!\n");
   exit(112);
 }

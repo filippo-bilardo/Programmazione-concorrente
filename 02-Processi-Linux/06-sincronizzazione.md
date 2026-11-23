@@ -33,7 +33,7 @@ def increment():
 
 ```
 ┌──────────────────────────────────────┐
-│    Primitive Sincronizzazione      │
+│    Primitive Sincronizzazione        │
 ├──────────────────────────────────────┤
 │ Lock      ← Mutua esclusione         │
 │ RLock     ← Lock rientrante          │

@@ -17,6 +17,8 @@
 int main(int argc, char *argv[]) 
 {
   execl("/bin/prova", "prova", (char *)0);
+  //in caso di fallimento della exec, il processo continua l'esecuzione del 
+  //codice sottostante.
   perror("exec fallita! A causa dell'errore: ");
   exit(1);
 }

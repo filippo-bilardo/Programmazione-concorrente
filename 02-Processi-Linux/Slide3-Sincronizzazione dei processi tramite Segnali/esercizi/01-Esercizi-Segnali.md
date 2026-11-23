@@ -43,6 +43,16 @@ SIGINT ricevuto ma ignorato!
 Comportamento default ripristinato. CTRL-C ora terminerà il programma.
 ```
 
+suggerimento per attendere 10 secondi:
+```c
+    // Ciclo di attesa di 10 secondi
+    // Usiamo un ciclo perché sleep() viene interrotto quando arriva un segnale
+    unsigned int tempo_rimanente = 10;
+    while (tempo_rimanente > 0) {
+        tempo_rimanente = sleep(tempo_rimanente);
+    }
+```
+
 ---
 
 ### Esercizio 1.3 - Signal Handler Multipli
