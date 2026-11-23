@@ -20,6 +20,9 @@
 #include <signal.h>   // signal, costanti
 
 //------------------------------------------------------------------------------------------
+// Prototipo della funzione che gestisce il segnale SIGINT (CTRL-C)
+// Serve pre segnalare che la funzione gestoreCtrlC verra' definita dopo 
+// la funzione main()
 void gestoreCtrlC(int signum);
 
 //------------------------------------------------------------------------------------------

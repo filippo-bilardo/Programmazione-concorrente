@@ -7,7 +7,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
 //  In questo esempio al segnale SIGINT (CTRL-C), associamo una funzione (handler) che 
-//  verra' eseguita alla ricezione del segnale.
+//  verra' eseguita alla ricezione del segnale.
 //
 // Ver   Date        Comment
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

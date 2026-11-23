@@ -11,6 +11,16 @@
 //  Provare a compilare ed eseguire il seguente codice.
 //  Cosa succede se nella shell si preme CTRL-C ?
 //
+//  gcc sig01-no_handler.c  # compilazione
+//  ./a.out                 # esecuzione
+//  # cercare il PID del processo in esecuzione con il comando "ps" 
+//  # oppure con il comando "pidof a.out"
+//  # adesso possiamo inviare un segnale al processo in esecuzione 
+//  # aprendo un altra shell, ad esempio:
+//  kill -SIGINT <pid>      # invio del segnale SIGINT al processo
+//  # oppure possiamo terminare il processo in esecuzione semplicemente premendo CTRL-C 
+//  # nella shell, in questo modo inviamo il segnale SIGINT al processo in foreground
+//
 // Ver   Date        Comment
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // 1.0   21/03/17     Versione iniziale
